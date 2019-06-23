@@ -603,6 +603,13 @@ namespace LitJson
                 delegate (object obj, JsonWriter writer) {
                     writer.Write ((ulong) obj);
                 };
+
+            #region  litjson support float  modified by hmf
+            base_exporters_table[typeof(float)] =
+                delegate (object obj, JsonWriter writer) {
+                    writer.Write((float)obj);
+                };
+            #endregion
         }
 
         private static void RegisterBaseImporters ()
@@ -662,6 +669,15 @@ namespace LitJson
             };
             RegisterImporter (base_importers_table, typeof (int),
                               typeof (double), importer);
+
+            #region  litjson support float  modified by hmf
+            importer = delegate (object input) {
+                return Convert.ToSingle((double)input);
+            };
+
+            RegisterImporter(base_importers_table, typeof(double),
+                               typeof(float), importer);
+            #endregion
 
             importer = delegate (object input) {
                 return Convert.ToDecimal ((double) input);
