@@ -604,6 +604,11 @@ namespace LitJson
                     writer.Write ((ulong) obj);
                 };
 
+            base_exporters_table[typeof(DateTimeOffset)] =
+                delegate (object obj, JsonWriter writer) {
+                    writer.Write(((DateTimeOffset)obj).ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz", datetime_format));
+                };
+
             #region  litjson support float  modified by hmf
             base_exporters_table[typeof(float)] =
                 delegate (object obj, JsonWriter writer) {
