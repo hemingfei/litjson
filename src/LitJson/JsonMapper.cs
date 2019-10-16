@@ -675,21 +675,11 @@ namespace LitJson
             RegisterImporter (base_importers_table, typeof (int),
                               typeof (double), importer);
 
-            #region  litjson support float  modified by hmf
-            importer = delegate (object input) {
-                return Convert.ToSingle((double)input);
-            };
-
-            RegisterImporter(base_importers_table, typeof(double),
-                               typeof(float), importer);
-            #endregion
-
             importer = delegate (object input) {
                 return Convert.ToDecimal ((double) input);
             };
             RegisterImporter (base_importers_table, typeof (double),
                               typeof (decimal), importer);
-
 
             importer = delegate (object input) {
                 return Convert.ToUInt32 ((long) input);
@@ -714,6 +704,15 @@ namespace LitJson
             };
             RegisterImporter(base_importers_table, typeof(string),
                 typeof(DateTimeOffset), importer);
+
+            #region  litjson support float  modified by hmf
+            importer = delegate (object input) {
+                return Convert.ToSingle((double)input);
+            };
+
+            RegisterImporter(base_importers_table, typeof(double),
+                               typeof(float), importer);
+            #endregion
         }
 
         private static void RegisterImporter (
